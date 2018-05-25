@@ -316,7 +316,16 @@ void Graphics::PutPixel( int x,int y,Color c )
 	pSysBuffer[Graphics::ScreenWidth * y + x] = c;
 }
 
-
+void Graphics::FillRect( int _left, int _top, int _right, int _bottom, Color _c )
+{
+	for( int y = _top; y < _bottom; ++y )
+	{
+		for( int x = _left; x < _right; ++x )
+		{
+			PutPixel( x, y, _c );
+		}
+	}
+}
 
 
 //////////////////////////////////////////////////

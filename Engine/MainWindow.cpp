@@ -40,27 +40,28 @@ MainWindow::MainWindow( HINSTANCE hInst,wchar_t * pArgs )
 	RegisterClassEx( &wc );
 
 	// create window & get hWnd
+	int x = 350, y = 100;
 	RECT wr;
-	wr.left = 350;
-	wr.right = Graphics::ScreenWidth + wr.left;
-	wr.top = 100;
-	wr.bottom = Graphics::ScreenHeight + wr.top;
-	AdjustWindowRect( &wr,WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,FALSE );
-	hWnd = CreateWindow( wndClassName,L"Chili DirectX Framework",
-		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
-		wr.left,wr.top,wr.right - wr.left,wr.bottom - wr.top,
-		nullptr,nullptr,hInst,this );
+	SetRect( &wr, x, y, Graphics::ScreenWidth + x, Graphics::ScreenHeight + y );
+	AdjustWindowRect( &wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE );
+	x = wr.left;
+	y = wr.top;
+	const auto width = wr.right - wr.left;
+	const auto height = wr.bottom - wr.top;
+
+	hWnd = CreateWindow( wndClassName, L"Chili DirectX Framework",
+		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, x, y, width, height,
+		nullptr, nullptr, hInst, this );
 
 	// throw exception if something went terribly wrong
 	if( hWnd == nullptr )
 	{
-		throw Exception( _CRT_WIDE( __FILE__ ),__LINE__,
-			L"Failed to get valid window handle." );
+		
+		throw Exception( __FILEW__, __LINE__, L"Failed to get valid window handle." );
 	}
 
 	// show and update
 	ShowWindow( hWnd,SW_SHOWDEFAULT );
-	UpdateWindow( hWnd );
 }
 
 MainWindow::~MainWindow()
@@ -132,35 +133,7 @@ LRESULT WINAPI MainWindow::_HandleMsgThunk( HWND hWnd,UINT msg,WPARAM wParam,LPA
 LRESULT MainWindow::HandleMsg( HWND hWnd,UINT msg,WPARAM wParam,LPARAM lParam )
 {
 	switch( msg )
-	{
-	
-	case WM_CREATE:
-		HMENU hMenu, hSubMenu;
-
-		hMenu = CreateMenu();
-
-		hSubMenu = CreatePopupMenu();
-		AppendMenu(hSubMenu, MF_STRING, ID_FILE_EXIT, L"E&xit");
-		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu,L"&File");
-
-		hSubMenu = CreatePopupMenu();
-		AppendMenu(hSubMenu, MF_STRING, ID_STUFF_GO, L"&Go");
-		AppendMenu(hMenu, MF_STRING | MF_POPUP, (UINT)hSubMenu, L"&Stuff");
-
-		SetMenu(hWnd, hMenu);
-
-	case WM_COMMAND:
-		switch (LOWORD(wParam))
-		{
-		case ID_FILE_EXIT:
-			PostMessage(hWnd, WM_CLOSE, 0, 0);
-			break;
-		case ID_STUFF_GO:
-			MessageBox(hWnd, L"You clicked Go!", L"Woo!", MB_OK);
-			break;
-		}
-		break;
-
+	{	
 	case WM_DESTROY:
 		PostQuitMessage( 0 );
 		break;

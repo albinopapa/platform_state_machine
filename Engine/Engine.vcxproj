@@ -146,9 +146,16 @@
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="MainWindow.h" />
     <ClInclude Include="Mouse.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerIdle.h" />
+    <ClInclude Include="PlayerJumping.h" />
+    <ClInclude Include="PlayerRunning.h" />
+    <ClInclude Include="PlayerState.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="SoundEffect.h" />
+    <ClInclude Include="Vector.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="COMInitializer.cpp" />
@@ -159,7 +166,13 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainWindow.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerIdle.cpp" />
+    <ClCompile Include="PlayerJumping.cpp" />
+    <ClCompile Include="PlayerRunning.cpp" />
+    <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="Sound.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">
